@@ -1,4 +1,4 @@
-/*resource "kubectl_manifest" "prometheus_ingress" {
+resource "kubectl_manifest" "prometheus_ingress" {
     depends_on = [ helm_release.prometheus]
   yaml_body = jsonencode({
     apiVersion = "networking.k8s.io/v1"
@@ -74,4 +74,3 @@ resource "kubectl_manifest" "grafana_ingress" {
     }
   })
 }
-*/

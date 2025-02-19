@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app.jar
-          path: microservices/WorldService/target/world-service-1.jar
+          path: microservices/WorldService/target/worldservice-1.jar
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
