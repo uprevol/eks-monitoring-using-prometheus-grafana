@@ -42,7 +42,7 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_wrapper: true
+        terraform_wrapper: 1.10.5
 
     - name: Initialize Terraform
       run: terraform init
