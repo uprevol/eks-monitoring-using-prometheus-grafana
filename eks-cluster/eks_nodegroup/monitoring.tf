@@ -1,13 +1,5 @@
-provider "kubectl" {
-  host                   = module.eks.cluster_endpoint
-  load_config_file       = false
-  token  =data.aws_eks_cluster_auth.cluster.token
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-}
-
-
 resource "helm_release" "prometheus" {
-  depends_on = [module.eks_managed_node_group]
+  depends_on = [helm_release.aws_load_balancer_controller] // Added this code to ensure loadbalancer controller is available 
   create_namespace = true
   name       = "prometheus"
   namespace  = "monitoring"
@@ -27,6 +19,9 @@ resource "helm_release" "grafana" {
   repository = "https://grafana.github.io/helm-charts"
   chart      = "grafana"
  // version    = "15.2.1" # Ensure this matches the version you want
+  values = [
+    file("helm_values/values_grafana.yaml") # Path to your custom values file
+  ]
   set {
     name  = "adminPassword"
     value = "admin"

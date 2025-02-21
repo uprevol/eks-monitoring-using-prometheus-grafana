@@ -1,0 +1,5 @@
+server:
+  persistentVolume:
+    enabled: true
+    storageClass: "gp2"  # Specify your custom StorageClass here. Using the one which was cxreated as part of addon installation
+    size: 10Gi  # Define the storage size you want

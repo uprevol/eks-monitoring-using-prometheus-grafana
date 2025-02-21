@@ -1,5 +1,13 @@
+/*
+provider "kubectl" {
+  host                   = module.eks.cluster_endpoint
+  load_config_file       = false
+  token  =data.aws_eks_cluster_auth.cluster.token
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+}
+
 resource "kubectl_manifest" "prometheus_ingress" {
-    depends_on = [ helm_release.prometheus]
+  depends_on = [ helm_release.prometheus]
   yaml_body = jsonencode({
     apiVersion = "networking.k8s.io/v1"
     kind       = "Ingress"
@@ -11,6 +19,10 @@ resource "kubectl_manifest" "prometheus_ingress" {
         "alb.ingress.kubernetes.io/target-type"      = "ip"
         "alb.ingress.kubernetes.io/group.name"       = "prometheus-group"
         "alb.ingress.kubernetes.io/healthcheck-path" = "/-/ready"
+        "alb.ingress.kubernetes.io/load-balancer-name" = "poc-alb"
+        "alb.ingress.kubernetes.io/certificate-arn" = "${aws_acm_certificate.cert.arn}"
+        "alb.ingress.kubernetes.io/group.name": "myapp"
+
       }
     }
     spec = {
@@ -50,6 +62,7 @@ resource "kubectl_manifest" "grafana_ingress" {
         "alb.ingress.kubernetes.io/target-type"      = "ip"
         "alb.ingress.kubernetes.io/group.name"       = "prometheus-group"
         "alb.ingress.kubernetes.io/healthcheck-path" = "/api/health"
+        "alb.ingress.kubernetes.io/group.name": "myapp"
       }
     }
     spec = {
@@ -74,3 +87,4 @@ resource "kubectl_manifest" "grafana_ingress" {
     }
   })
 }
+*/
