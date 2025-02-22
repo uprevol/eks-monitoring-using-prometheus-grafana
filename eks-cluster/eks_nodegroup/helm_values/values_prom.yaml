@@ -10,3 +10,40 @@ alertmanager:
     enabled: true
     storageClass: "gp2"  # Specify your custom StorageClass here. Using the one which was cxreated as part of addon installation
     size: 10Gi  # Define the storage size you want
+// Create alert rules
+serverFiles:
+  alerting_rules.yml:
+    groups:
+      - name: Instances
+        rules:
+          - alert: InstanceDown
+            expr: up == 0
+            for: 10s
+            labels:
+              severity: critical
+            annotations:
+              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+              summary: 'Instance {{ $labels.instance }} down'
+  config:
+    route:
+      group_by: ['alertname']
+      group_wait: 30s
+      group_interval: 5m
+      receiver: critical-notifications
+      repeat_interval: 3h
+      routes:
+        - match:
+            severity: critical  # This matches the labels in your alerts
+          receiver: 'critical-notifications'
+    receivers:
+      - name: 'critical-notifications'
+        email_configs:
+          - to: '${DESTINATION_GMAIL_ID}'
+            from: '${SOURCE_GMAIL_ID}'
+            smarthost: 'smtp.gmail.com:587'
+            auth_username: '${SOURCE_GMAIL_ID}'
+            auth_password: '${SOURCE_AUTH_PASSWORD}'
+alertmanagers:
+    - static_configs:
+        - targets:
+            - 'prometheus-alertmanager.monitoring.svc.cluster.local:9093' 

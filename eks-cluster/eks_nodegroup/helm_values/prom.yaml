@@ -26,11 +26,11 @@ serverFiles:
     receivers:
       - name: 'critical-notifications'
         email_configs:
-          - to: 'XXXX@gmail.com'
-            from: 'devops4solutions@gmail.com'
+          - to: '${DESTINATION_GMAIL_ID}'
+            from: '${SOURCE_GMAIL_ID}'
             smarthost: 'smtp.gmail.com:587'
-            auth_username: 'devops4solutions@gmail.com'
-            auth_password: 'XXXX'
+            auth_username: '${SOURCE_GMAIL_ID}'
+            auth_password: '${SOURCE_AUTH_PASSWORD}'
 alertmanagers:
     - static_configs:
         - targets:
