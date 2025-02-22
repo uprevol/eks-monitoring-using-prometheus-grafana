@@ -32,5 +32,3 @@ resource "helm_release" "grafana" {
 
 
 
-
-
