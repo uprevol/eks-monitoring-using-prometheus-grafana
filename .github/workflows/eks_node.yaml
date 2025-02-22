@@ -61,10 +61,10 @@ jobs:
       run: |
        if [ "${{ github.event.inputs.action }}" == "destroy" ]; then
         terraform destroy -auto-approve
-      else
+       else
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
           terraform apply -auto-approve
         else
           echo "Skipping terraform apply as the branch is not main."
         fi
-      fi
+       fi
