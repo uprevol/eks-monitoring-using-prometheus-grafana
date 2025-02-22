@@ -21,6 +21,10 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: us-east-1
+  TF_VAR_SOURCE_GMAIL_ID: ${{ secrets.SOURCE_GMAIL_ID }}
+  TF_VAR_SOURCE_AUTH_PASSWORD: ${{ secrets.SOURCE_AUTH_PASSWORD }}
+  TF_VAR_DESTINATION_GMAIL_ID: ${{ secrets.DESTINATION_GMAIL_ID }}
+
 
 jobs:
   terraform:
@@ -55,8 +59,12 @@ jobs:
 
     - name: Execute Terraform Action
       run: |
-        if [ "${{ github.event.inputs.action }}" == "destroy" ]; then
-          terraform destroy -auto-approve
-        else
+       if [ "${{ github.event.inputs.action }}" == "destroy" ]; then
+        terraform destroy -auto-approve
+       else
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
           terraform apply -auto-approve
+        else
+          echo "Skipping terraform apply as the branch is not main."
         fi
+       fi
