@@ -3,3 +3,10 @@ server:
     enabled: true
     storageClass: "gp2"  # Specify your custom StorageClass here. Using the one which was cxreated as part of addon installation
     size: 10Gi  # Define the storage size you want
+alertmanager:
+  extraArgs:
+    cluster.advertise-address: "$(POD_IP):9094" # https://github.com/prometheus-community/helm-charts/issues/2880
+  persistence:
+    enabled: true
+    storageClass: "gp2"  # Specify your custom StorageClass here. Using the one which was cxreated as part of addon installation
+    size: 10Gi  # Define the storage size you want
