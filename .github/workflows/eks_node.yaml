@@ -60,6 +60,7 @@ jobs:
     - name: Execute Terraform Action
       run: |
        if [ "${{ github.event.inputs.action }}" == "destroy" ]; then
+        terraform state rm helm_release.prometheus
         terraform destroy -auto-approve
        else
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
