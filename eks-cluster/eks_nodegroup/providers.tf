@@ -16,7 +16,7 @@ terraform {
 
   backend "s3" {
     region = "us-east-1"
-    bucket = "devops4solutions-terraform"
+    bucket = "salil-terraform"
     key    = "eks_cluster_monitoring.tfstate"
   }
 }
