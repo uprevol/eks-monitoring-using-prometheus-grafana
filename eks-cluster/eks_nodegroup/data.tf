@@ -5,5 +5,5 @@ data "aws_eks_cluster_auth" "cluster" {
 }
 
 data "aws_route53_zone" "public_zone" {
-  name = "devops4solutions.com" # Replace with your domain name, including the trailing dot
+  name = "salilagrawal.com" # Replace with your domain name, including the trailing dot
 }
