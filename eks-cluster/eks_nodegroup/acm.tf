@@ -1,9 +1,8 @@
-# Create ACM Certificate with SANs
-/*resource "aws_acm_certificate" "cert" {
-  domain_name               = "devops4solutions.com"
+resource "aws_acm_certificate" "cert" {
+  domain_name               = "salilagrawal.com"
   subject_alternative_names = [
-    "*.devops4solutions.com",
-    "*.dev.devops4solutions.com",
+    "*.salilagrawal.com",
+    "*.dev.salilagrawal.com",
   ]
   validation_method         = "DNS"
 
@@ -37,4 +36,3 @@ resource "aws_acm_certificate_validation" "cert" {
   certificate_arn         = aws_acm_certificate.cert.arn
   validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
 }
-*/
