@@ -1,4 +1,3 @@
-/*
 provider "kubectl" {
   host                   = module.eks.cluster_endpoint
   load_config_file       = false
@@ -28,7 +27,7 @@ resource "kubectl_manifest" "prometheus_ingress" {
     spec = {
       ingressClassName = "alb"
       rules = [{
-        host = "prometheus.devops4solutions.com"
+        host = "prometheus.salilagrawal.com"
         http = {
           paths = [{
             path     = "/"
@@ -68,7 +67,7 @@ resource "kubectl_manifest" "grafana_ingress" {
     spec = {
       ingressClassName = "alb"
       rules = [{
-        host = "grafana.devops4solutions.com"
+        host = "grafana.salilagrawal.com"
         http = {
           paths = [{
             path     = "/"
@@ -87,4 +86,3 @@ resource "kubectl_manifest" "grafana_ingress" {
     }
   })
 }
-*/
